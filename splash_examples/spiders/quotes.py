@@ -2,6 +2,7 @@
 import scrapy
 from scrapy_splash import SplashRequest
 
+
 class QuotesSpider(scrapy.Spider):
     name = 'quotes'
     allowed_domains = ['quotes.toscrape.com']
@@ -14,8 +15,8 @@ class QuotesSpider(scrapy.Spider):
     def parse(self, response):
         for sel in response.css('div.quote'):
             quote = sel.css('span.text::text').extract_first(default='N\A')
-            author =sel.css('small.author::text').extract_first()
-            yield {'quote':quote, 'author':author}
+            author = sel.css('small.author::text').extract_first()
+            yield {'quote':quote, 'author': author}
         href = response.css('li.next>a::attr(href)').extract_first()
         if href:
             url = response.urljoin(href)
